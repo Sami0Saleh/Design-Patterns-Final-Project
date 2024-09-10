@@ -59,29 +59,38 @@ public class MinimapManager : MonoBehaviour
     {
         if (minimapIcons.TryGetValue(worldObject, out GameObject icon))
         {
+            // Get the local position on the minimap for the world position
             Vector3 minimapPosition = ConvertWorldToMinimapPosition(worldPosition);
-            icon.transform.localPosition = minimapPosition;
+
+            // Set the icon's local position relative to the minimap RectTransform
+            RectTransform iconRectTransform = icon.GetComponent<RectTransform>();
+            iconRectTransform.localPosition = minimapPosition;
         }
     }
 
     private Vector3 ConvertWorldToMinimapPosition(Vector3 worldPosition)
     {
-        var minimapSize = minimapRectTransform.rect.size;
-        var worldsize = new Vector2 (worldPosition.x, worldPosition.y);
-
-        var trans = -minimapSize / 2;
-        var scale = minimapSize / worldsize;
-
-
+        // Get the dimensions of the minimap RectTransform
         float minimapWidth = minimapRectTransform.rect.width;
         float minimapHeight = minimapRectTransform.rect.height;
 
+        // Scale factors based on world dimensions and minimap dimensions
         float scaleX = minimapWidth / worldWidth;
         float scaleY = minimapHeight / worldHeight;
 
-        float minimapX = (worldPosition.x + worldWidth / 2) * scaleX;
-        float minimapY = (worldPosition.z + worldHeight / 2) * scaleY;
+        // Convert the world position into a normalized value (0 to 1) within the world boundaries
+        float normalizedX = (worldPosition.x / worldWidth) + 0.5f; // Normalized X from [-worldWidth/2, worldWidth/2] to [0, 1]
+        float normalizedY = (worldPosition.z / worldHeight) + 0.5f; // Normalized Y from [-worldHeight/2, worldHeight/2] to [0, 1]
 
-        return new Vector3(minimapX - minimapWidth / 2, minimapY - minimapHeight / 2, 0);
+        // Scale the normalized coordinates to the minimap size
+        float minimapX = normalizedX * minimapWidth;
+        float minimapY = normalizedY * minimapHeight;
+
+        // Adjust the position so that (0, 0) is the center of the minimap
+        minimapX -= minimapWidth / 2;
+        minimapY -= minimapHeight / 2;
+
+        // Return the local position within the minimap
+        return new Vector3(minimapX, minimapY, 0);
     }
 }

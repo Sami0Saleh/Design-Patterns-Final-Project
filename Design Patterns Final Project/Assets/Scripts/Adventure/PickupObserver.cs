@@ -17,7 +17,6 @@ public class PickupObserver : MonoBehaviour
     void HandlePickupCollected(Pickup pickup)
     {
         AdventureGameManager.Instance.AddScore(10);
-        // Remove the pickup from the minimapRectTransform
-        // MinimapManager.Instance.RemovePickupMarker(pickup);
+        MinimapManager.Instance.Unregister(pickup.gameObject);
     }
 }
