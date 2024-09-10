@@ -12,6 +12,7 @@ public class Pickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnPickupCollected?.Invoke(this);
+            GetComponent<MinimapIcon>().RemoveFromMinimap();
             Destroy(gameObject);
         }
     }
