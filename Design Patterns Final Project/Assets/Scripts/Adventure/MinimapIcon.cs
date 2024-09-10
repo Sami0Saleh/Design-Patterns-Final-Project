@@ -10,7 +10,7 @@ public class MinimapIcon : MonoBehaviour
     void Start()
     {
         minimapIcon = Instantiate(minimapIconPrefab, MinimapManager.Instance.transform);
-        MinimapManager.Instance.Register(gameObject, minimapIcon);
+        UIManager.Instance.AddMinimapIcon(minimapIcon);
     }
 
     public void UpdatePosition(Vector3 worldPosition)

@@ -5,9 +5,13 @@ using UnityEngine;
 public class MinimapManager : MonoBehaviour
 {
     public static MinimapManager Instance { get; private set; }
-    private Dictionary<GameObject, GameObject> minimapIcons = new Dictionary<GameObject, GameObject>();
 
-    void Awake()
+    private Dictionary<GameObject, GameObject> minimapIcons = new Dictionary<GameObject, GameObject>();
+    private RectTransform minimapRectTransform;
+    public float worldWidth = 100f; 
+    public float worldHeight = 100f;
+
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -19,21 +23,26 @@ public class MinimapManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        minimapRectTransform = UIManager.Instance.minimap;
+    }
 
-    public void Register(GameObject worldObject, GameObject minimapIcon)
+    public void Register(GameObject worldObject, GameObject iconPrefab)
     {
         if (!minimapIcons.ContainsKey(worldObject))
         {
-            minimapIcons.Add(worldObject, minimapIcon);
+            GameObject icon = UIManager.Instance.AddMinimapIcon(iconPrefab);
+            minimapIcons.Add(worldObject, icon);
             UpdateIconPosition(worldObject, worldObject.transform.position);
         }
     }
 
     public void Unregister(GameObject worldObject)
     {
-        if (minimapIcons.ContainsKey(worldObject))
+        if (minimapIcons.TryGetValue(worldObject, out GameObject icon))
         {
-            Destroy(minimapIcons[worldObject]);
+            UIManager.Instance.RemoveMinimapIcon(icon);
             minimapIcons.Remove(worldObject);
         }
     }
@@ -50,15 +59,22 @@ public class MinimapManager : MonoBehaviour
     {
         if (minimapIcons.TryGetValue(worldObject, out GameObject icon))
         {
-            // Convert world position to minimap position here
             Vector3 minimapPosition = ConvertWorldToMinimapPosition(worldPosition);
-            icon.transform.position = minimapPosition;
+            icon.transform.localPosition = minimapPosition;
         }
     }
 
     private Vector3 ConvertWorldToMinimapPosition(Vector3 worldPosition)
     {
-        // Implement conversion logic based on your world and minimap scale
-        return new Vector3(worldPosition.x, worldPosition.y, 0); // Simplified example
+        float minimapWidth = minimapRectTransform.rect.width;
+        float minimapHeight = minimapRectTransform.rect.height;
+
+        float scaleX = minimapWidth / worldWidth;
+        float scaleY = minimapHeight / worldHeight;
+
+        float minimapX = (worldPosition.x + worldWidth / 2) * scaleX;
+        float minimapY = (worldPosition.z + worldHeight / 2) * scaleY;
+
+        return new Vector3(minimapX - minimapWidth / 2, minimapY - minimapHeight / 2, 0);
     }
 }

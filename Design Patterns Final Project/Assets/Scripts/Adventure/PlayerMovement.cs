@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private Transform spawnPointTransform;
+
     public Vector3 CamPosition;
     [SerializeField] private Transform _camTransform;
 
@@ -18,6 +20,19 @@ public class PlayerMovement : MonoBehaviour
         if (_camTransform != null)
         {
             _camTransform.position = transform.position + CamPosition;
+        }
+    }
+    private void Respawn()
+    {
+        transform.position = spawnPointTransform.position;
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Respawn();
         }
     }
 }

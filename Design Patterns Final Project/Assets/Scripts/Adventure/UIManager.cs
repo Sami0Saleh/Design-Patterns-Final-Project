@@ -27,6 +27,15 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
     }
+    public GameObject AddMinimapIcon(GameObject iconPrefab)
+    {
+        GameObject icon = Instantiate(iconPrefab, minimap);
+        return icon;
+    }
 
-    // You would add methods to add and remove markers on the minimap here
+    public void RemoveMinimapIcon(GameObject icon)
+    {
+        Destroy(icon);
+    }
+
 }
