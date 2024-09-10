@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinimapIcon : MonoBehaviour
+public class MinimapIcon : MonoBehaviour, IMinimapObserver
 {
-    [SerializeField] private GameObject minimapIconPrefab;
-    private GameObject minimapIcon;
+    [SerializeField] private GameObject _minimapIconPrefab;
 
     void Start()
     {
-        minimapIcon = Instantiate(minimapIconPrefab, MinimapManager.Instance.transform);
-        UIManager.Instance.AddMinimapIcon(minimapIcon);
-    }
-
-    public void UpdatePosition(Vector3 worldPosition)
-    {
-        // This will be handled by the MinimapManager instead
+        MinimapManager.Instance.Register(gameObject, _minimapIconPrefab);
     }
 
     public void RemoveFromMinimap()

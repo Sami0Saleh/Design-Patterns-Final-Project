@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa02b317a0670c34e98f525517196162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimapIconPrefab: {fileID: 1459080372099150073, guid: 45411fee94a55ea4c8d6a478041670f7, type: 3}
+  _minimapIconPrefab: {fileID: 1459080372099150073, guid: 45411fee94a55ea4c8d6a478041670f7, type: 3}
 --- !u!65 &7236817470506012326
 BoxCollider:
   m_ObjectHideFlags: 0

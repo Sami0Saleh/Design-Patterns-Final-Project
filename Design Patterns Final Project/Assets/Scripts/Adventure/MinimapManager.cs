@@ -25,7 +25,7 @@ public class MinimapManager : MonoBehaviour
     }
     private void Start()
     {
-        minimapRectTransform = UIManager.Instance.minimap;
+        minimapRectTransform = UIManager.Instance.minimapRectTransform;
     }
 
     public void Register(GameObject worldObject, GameObject iconPrefab)
@@ -66,6 +66,13 @@ public class MinimapManager : MonoBehaviour
 
     private Vector3 ConvertWorldToMinimapPosition(Vector3 worldPosition)
     {
+        var minimapSize = minimapRectTransform.rect.size;
+        var worldsize = new Vector2 (worldPosition.x, worldPosition.y);
+
+        var trans = -minimapSize / 2;
+        var scale = minimapSize / worldsize;
+
+
         float minimapWidth = minimapRectTransform.rect.width;
         float minimapHeight = minimapRectTransform.rect.height;
 

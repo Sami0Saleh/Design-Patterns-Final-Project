@@ -6,8 +6,9 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
+
     public TMP_Text scoreText;
-    public RectTransform minimap;
+    public RectTransform minimapRectTransform;
     
 
     void Awake()
@@ -22,14 +23,20 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void Start()
+    {
+        if (minimapRectTransform == null && Instance != null)
+        {
+            minimapRectTransform = Instance.minimapRectTransform;
+        }
+    }
     public void UpdateScoreText(int score)
     {
         scoreText.text = "Score: " + score;
     }
     public GameObject AddMinimapIcon(GameObject iconPrefab)
     {
-        GameObject icon = Instantiate(iconPrefab, minimap);
+        GameObject icon = Instantiate(iconPrefab, minimapRectTransform);
         return icon;
     }
 

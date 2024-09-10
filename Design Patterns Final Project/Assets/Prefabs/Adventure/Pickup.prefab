@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa02b317a0670c34e98f525517196162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimapIconPrefab: {fileID: 1165480681572053131, guid: 18343641b5e6f0d4bb646899ea87482f, type: 3}
+  _minimapIconPrefab: {fileID: 1165480681572053131, guid: 18343641b5e6f0d4bb646899ea87482f, type: 3}
 --- !u!135 &7918901856820277747
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
