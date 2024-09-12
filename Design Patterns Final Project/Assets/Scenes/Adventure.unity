@@ -764,8 +764,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: eaee920794a55d94d8a7cdb2ba3f7d76, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -794,6 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fb485db1efd7841a74c582abc3f6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapRectTransform: {fileID: 185194358}
   worldWidth: 100
   worldHeight: 100
 --- !u!1001 &189243713
@@ -2771,7 +2772,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 263982041}
-  minimapRectTransform: {fileID: 185194358}
 --- !u!1001 &732112997
 PrefabInstance:
   m_ObjectHideFlags: 0

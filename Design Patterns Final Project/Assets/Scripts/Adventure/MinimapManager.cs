@@ -7,7 +7,7 @@ public class MinimapManager : MonoBehaviour
     public static MinimapManager Instance { get; private set; }
 
     private Dictionary<GameObject, GameObject> minimapIcons = new Dictionary<GameObject, GameObject>();
-    private RectTransform minimapRectTransform;
+    public RectTransform MinimapRectTransform;
     public float worldWidth = 100f; 
     public float worldHeight = 100f;
 
@@ -25,7 +25,7 @@ public class MinimapManager : MonoBehaviour
     }
     private void Start()
     {
-        minimapRectTransform = UIManager.Instance.minimapRectTransform;
+        //MinimapRectTransform = UIManager.Instance.MinimapRectTransform;
     }
 
     public void Register(GameObject worldObject, GameObject iconPrefab)
@@ -71,8 +71,8 @@ public class MinimapManager : MonoBehaviour
     private Vector3 ConvertWorldToMinimapPosition(Vector3 worldPosition)
     {
         // Get the dimensions of the minimap RectTransform
-        float minimapWidth = minimapRectTransform.rect.width;
-        float minimapHeight = minimapRectTransform.rect.height;
+        float minimapWidth = MinimapRectTransform.rect.width;
+        float minimapHeight = MinimapRectTransform.rect.height;
 
         // Scale factors based on world dimensions and minimap dimensions
         float scaleX = minimapWidth / worldWidth;
