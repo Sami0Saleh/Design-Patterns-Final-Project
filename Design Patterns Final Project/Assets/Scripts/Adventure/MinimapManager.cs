@@ -55,10 +55,8 @@ public class MinimapManager : MonoBehaviour
     {
         if (minimapIcons.TryGetValue(worldObject, out GameObject icon))
         {
-            // Get the local position on the minimap for the world position
             Vector3 minimapPosition = ConvertWorldToMinimapPosition(worldPosition);
 
-            // Set the icon's local position relative to the minimap RectTransform
             RectTransform iconRectTransform = icon.GetComponent<RectTransform>();
             iconRectTransform.anchoredPosition = minimapPosition;
         }
@@ -66,27 +64,18 @@ public class MinimapManager : MonoBehaviour
 
     private Vector3 ConvertWorldToMinimapPosition(Vector3 worldPosition)
     {
-        // Get the dimensions of the minimap RectTransform
         float minimapWidth = MinimapRectTransform.rect.width;
         float minimapHeight = MinimapRectTransform.rect.height;
 
-        // Scale factors based on world dimensions and minimap dimensions
-        float scaleX = minimapWidth / worldWidth;
-        float scaleY = minimapHeight / worldHeight;
+        float normalizedX = (worldPosition.x / worldWidth * 0.1f) + 0.5f; 
+        float normalizedY = (worldPosition.z / worldHeight * 0.1f) + 0.5f; 
 
-        // Convert the world position into a normalized value (0 to 1) within the world boundaries
-        float normalizedX = (worldPosition.x / worldWidth) + 0.5f; // Normalized X from [-worldWidth/2, worldWidth/2] to [0, 1]
-        float normalizedY = (worldPosition.z / worldHeight) + 0.5f; // Normalized Y from [-worldHeight/2, worldHeight/2] to [0, 1]
-
-        // Scale the normalized coordinates to the minimap size
         float minimapX = normalizedX * minimapWidth;
         float minimapY = normalizedY * minimapHeight;
 
-        // Adjust the position so that (0, 0) is the center of the minimap
         minimapX -= minimapWidth / 2;
         minimapY -= minimapHeight / 2;
 
-        // Return the local position within the minimap
         return new Vector3(minimapX, minimapY, 0);
     }
 }
