@@ -5,7 +5,7 @@ using UnityEngine;
 public class TicTacToeModel : MonoBehaviour
 {
     public char[] Board { get; private set; } 
-    public char CurrentPlayer { get; private set; } 
+    public char CurrentPlayer { get; set; } 
     public int PlayerXWins { get; private set; }
     public int PlayerOWins { get; private set; }
     public int Ties { get; private set; }

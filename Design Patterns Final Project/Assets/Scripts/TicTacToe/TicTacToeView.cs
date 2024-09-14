@@ -25,8 +25,6 @@ public class TicTacToeView : MonoBehaviour
         redoButton.onClick.AddListener(() => GameManager.Instance.Redo());
         restartButton.onClick.AddListener(() => GameManager.Instance.RestartGame());
         mainMenuButton.onClick.AddListener(() => GameManager.Instance.MainMenu());
-
-        GameManager.Instance.RestartGame();
     }
 
     public void UpdateBoardCell(int index, char mark)

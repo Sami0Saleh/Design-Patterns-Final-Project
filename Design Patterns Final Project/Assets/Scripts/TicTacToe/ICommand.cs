@@ -44,11 +44,17 @@ public class PlaceMarkCommand : ICommand
             model.DecreaseScore(model.CurrentPlayer);
             view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
         }
+        else
+        {
+            model.DecreaseScore(' ');
+            view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+        }
 
         model.Board[cellIndex] = previousMark;
         view.UpdateBoardCell(cellIndex, previousMark);
 
         GameManager.Instance.UndoWinConditionCheck();
+        view.UpdateTurnIndicator(model.CurrentPlayer);
 
         model.HasWinner = false;
        

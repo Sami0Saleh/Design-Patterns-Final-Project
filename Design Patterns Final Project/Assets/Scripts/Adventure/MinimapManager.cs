@@ -23,10 +23,6 @@ public class MinimapManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-        //MinimapRectTransform = UIManager.Instance.MinimapRectTransform;
-    }
 
     public void Register(GameObject worldObject, GameObject iconPrefab)
     {
@@ -64,7 +60,7 @@ public class MinimapManager : MonoBehaviour
 
             // Set the icon's local position relative to the minimap RectTransform
             RectTransform iconRectTransform = icon.GetComponent<RectTransform>();
-            iconRectTransform.localPosition = minimapPosition;
+            iconRectTransform.anchoredPosition = minimapPosition;
         }
     }
 

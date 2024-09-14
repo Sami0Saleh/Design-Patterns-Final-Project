@@ -7,21 +7,6 @@ public class TicTacToeController : MonoBehaviour
     [SerializeField] private TicTacToeModel model;
     [SerializeField] private TicTacToeView view;
 
-    private void Awake()
-    {
-        if (model == null)
-            model = GetComponent<TicTacToeModel>();
-        if (view == null)
-            view = GetComponent<TicTacToeView>();
-
-        
-    }
-
-    private void Start()
-    {
-        view.UpdateTurnIndicator(model.CurrentPlayer);
-    }
-
     public void OnCellClicked(int index)
     {
         if (model.Board[index] != ' ' || IsGameOver())

@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        view.UpdateTurnIndicator(model.CurrentPlayer);
+        view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+    }
 
     public void ExecuteCommand(ICommand command)
     {
@@ -64,11 +69,14 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        if (model.CurrentPlayer != 'X')
+            model.CurrentPlayer = 'X';
+        
         model.ResetBoard();
+        view.ClearWinMessage();
         view.UpdateAllBoardCells(model.Board);
         view.UpdateTurnIndicator(model.CurrentPlayer);
         view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
-        view.ClearWinMessage();
         undoStack.Clear();
         redoStack.Clear();
         view.UnlockBoard();
