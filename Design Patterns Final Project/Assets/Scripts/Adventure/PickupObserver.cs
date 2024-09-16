@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickupObserver : MonoBehaviour
 {
+    private int _pickupPoints = 2;
     void OnEnable()
     {
         Pickup.OnPickupCollected += HandlePickupCollected;
@@ -16,7 +17,7 @@ public class PickupObserver : MonoBehaviour
 
     void HandlePickupCollected(Pickup pickup)
     {
-        AdventureGameManager.Instance.AddScore(10);
+        AdventureGameManager.Instance.AddScore(_pickupPoints);
         MinimapManager.Instance.Unregister(pickup.gameObject);
     }
 }

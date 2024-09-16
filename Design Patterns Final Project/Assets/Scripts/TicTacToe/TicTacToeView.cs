@@ -6,32 +6,32 @@ using TMPro;
 
 public class TicTacToeView : MonoBehaviour
 {
-    [SerializeField] private TMP_Text[] boardCells; 
-    [SerializeField] private TMP_Text turnIndicator; 
-    [SerializeField] private TMP_Text scoreIndicator; 
-    [SerializeField] private Button undoButton; 
-    [SerializeField] private Button redoButton; 
-    [SerializeField] private Button restartButton;
-    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private TMP_Text[] _boardCells; 
+    [SerializeField] private TMP_Text _turnIndicator; 
+    [SerializeField] private TMP_Text _scoreIndicator; 
+    [SerializeField] private Button _undoButton; 
+    [SerializeField] private Button _redoButton; 
+    [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _mainMenuButton;
 
-    [SerializeField] private TicTacToeController controller;
+    [SerializeField] private TicTacToeController _controller;
 
-    public TMP_Text TurnIndicator { get => turnIndicator; private set => turnIndicator = value; }
+    public TMP_Text TurnIndicator { get => _turnIndicator; private set => _turnIndicator = value; }
 
     private void Start()
     {
 
-        undoButton.onClick.AddListener(() => GameManager.Instance.Undo());
-        redoButton.onClick.AddListener(() => GameManager.Instance.Redo());
-        restartButton.onClick.AddListener(() => GameManager.Instance.RestartGame());
-        mainMenuButton.onClick.AddListener(() => GameManager.Instance.MainMenu());
+        _undoButton.onClick.AddListener(() => GameManager.Instance.Undo());
+        _redoButton.onClick.AddListener(() => GameManager.Instance.Redo());
+        _restartButton.onClick.AddListener(() => GameManager.Instance.RestartGame());
+        _mainMenuButton.onClick.AddListener(() => GameManager.Instance.MainMenu());
     }
 
     public void UpdateBoardCell(int index, char mark)
     {
-        if (index >= 0 && index < boardCells.Length)
+        if (index >= 0 && index < _boardCells.Length)
         {
-            boardCells[index].text = mark.ToString();
+            _boardCells[index].text = mark.ToString();
         }
     }
 
@@ -39,36 +39,36 @@ public class TicTacToeView : MonoBehaviour
     {
         for (int i = 0; i < board.Length; i++)
         {
-            boardCells[i].text = board[i].ToString();
+            _boardCells[i].text = board[i].ToString();
         }
     }
 
     public void UpdateTurnIndicator(char currentPlayer)
     {
-        turnIndicator.text = $"Player {currentPlayer}'s Turn";
+        _turnIndicator.text = $"Player {currentPlayer}'s Turn";
     }
 
     public void UpdateScore(int playerXScore, int playerOScore, int ties)
     {
-        scoreIndicator.text = $"X: {playerXScore} - O: {playerOScore} - Ties: {ties}";
+        _scoreIndicator.text = $"X: {playerXScore} - O: {playerOScore} - Ties: {ties}";
     }
 
     public void DisplayWinMessage(char winner)
     {
         if (winner == ' ')
-            turnIndicator.text = "It's a Tie!";
+            _turnIndicator.text = "It's a Tie!";
         else
-            turnIndicator.text = $"Player {winner} Wins!";
+            _turnIndicator.text = $"Player {winner} Wins!";
     }
 
     public void ClearWinMessage()
     {
-        turnIndicator.text = "";
+        _turnIndicator.text = "";
     }
 
     public void LockBoard()
     {
-        foreach (var cell in boardCells)
+        foreach (var cell in _boardCells)
         {
             cell.transform.parent.GetComponent<Button>().interactable = false;
         }
@@ -76,7 +76,7 @@ public class TicTacToeView : MonoBehaviour
 
     public void UnlockBoard()
     {
-        foreach (var cell in boardCells)
+        foreach (var cell in _boardCells)
         {
             cell.transform.parent.GetComponent<Button>().interactable = true;
         }

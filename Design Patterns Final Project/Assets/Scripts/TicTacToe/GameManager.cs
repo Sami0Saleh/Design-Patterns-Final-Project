@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private TicTacToeModel model;
-    [SerializeField] private TicTacToeView view;
-    [SerializeField] private TicTacToeController controller;
+    [SerializeField] private TicTacToeModel _model;
+    [SerializeField] private TicTacToeView _view;
+    [SerializeField] private TicTacToeController _controller;
 
-    private Stack<ICommand> undoStack = new Stack<ICommand>();
-    private Stack<ICommand> redoStack = new Stack<ICommand>();
+    private Stack<ICommand> _undoStack = new Stack<ICommand>();
+    private Stack<ICommand> _redoStack = new Stack<ICommand>();
 
     private void Awake()
     {
@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            if (model == null)
-                model = GetComponent<TicTacToeModel>();
-            if (view == null)
-                view = GetComponent<TicTacToeView>();
-            if (controller == null)
-                controller = GetComponent<TicTacToeController>();
+            if (_model == null)
+                _model = GetComponent<TicTacToeModel>();
+            if (_view == null)
+                _view = GetComponent<TicTacToeView>();
+            if (_controller == null)
+                _controller = GetComponent<TicTacToeController>();
         }
         else
         {
@@ -36,50 +36,50 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        view.UpdateTurnIndicator(model.CurrentPlayer);
-        view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+        _view.UpdateTurnIndicator(_model.CurrentPlayer);
+        _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
     }
 
     public void ExecuteCommand(ICommand command)
     {
         command.Execute();
-        undoStack.Push(command);
-        redoStack.Clear(); 
+        _undoStack.Push(command);
+        _redoStack.Clear(); 
     }
 
     public void Undo()
     {
-        if (undoStack.Count > 0)
+        if (_undoStack.Count > 0)
         {
-            ICommand command = undoStack.Pop();
+            ICommand command = _undoStack.Pop();
             command.Undo();
-            redoStack.Push(command);
+            _redoStack.Push(command);
         }
     }
 
     public void Redo()
     {
-        if (redoStack.Count > 0)
+        if (_redoStack.Count > 0)
         {
-            ICommand command = redoStack.Pop();
+            ICommand command = _redoStack.Pop();
             command.Execute();
-            undoStack.Push(command);
+            _undoStack.Push(command);
         }
     }
 
     public void RestartGame()
     {
-        if (model.CurrentPlayer != 'X')
-            model.CurrentPlayer = 'X';
+        if (_model.CurrentPlayer != 'X')
+            _model.CurrentPlayer = 'X';
         
-        model.ResetBoard();
-        view.ClearWinMessage();
-        view.UpdateAllBoardCells(model.Board);
-        view.UpdateTurnIndicator(model.CurrentPlayer);
-        view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
-        undoStack.Clear();
-        redoStack.Clear();
-        view.UnlockBoard();
+        _model.ResetBoard();
+        _view.ClearWinMessage();
+        _view.UpdateAllBoardCells(_model.Board);
+        _view.UpdateTurnIndicator(_model.CurrentPlayer);
+        _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
+        _undoStack.Clear();
+        _redoStack.Clear();
+        _view.UnlockBoard();
     }
 
     public void MainMenu()
@@ -89,39 +89,39 @@ public class GameManager : MonoBehaviour
 
     public void SwitchTurn()
     {
-        model.SwitchPlayer();
-        view.UpdateTurnIndicator(model.CurrentPlayer);
+        _model.SwitchPlayer();
+        _view.UpdateTurnIndicator(_model.CurrentPlayer);
     }
 
     public void UpdateScore(char winner)
     {
-        model.UpdateScore(winner);
-        view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+        _model.UpdateScore(winner);
+        _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
     }
 
     public void CheckWinCondition()
     {
-        char winner = controller.CheckWin();
+        char winner = _controller.CheckWin();
         if (winner != '\0')
         {
             if (winner != ' ')
             {
-                model.HasWinner = true;
+                _model.HasWinner = true;
                 UpdateScore(winner);
             }
             else
             {
-                model.UpdateScore(' '); 
-                view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+                _model.UpdateScore(' '); 
+                _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
             }
-            view.DisplayWinMessage(winner);
-            view.LockBoard();
+            _view.DisplayWinMessage(winner);
+            _view.LockBoard();
         }
     }
 
     public void UndoWinConditionCheck()
     {
-        view.ClearWinMessage();
-        view.UnlockBoard();
+        _view.ClearWinMessage();
+        _view.UnlockBoard();
     }
 }

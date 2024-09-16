@@ -4199,8 +4199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631f8c2df0d11c04ebd3d9060c15d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 2142885373}
-  view: {fileID: 2142885372}
+  _model: {fileID: 2142885373}
+  _view: {fileID: 2142885372}
 --- !u!114 &2142885372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4213,7 +4213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e743cbb4a882147ab5fb827051165b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardCells:
+  _boardCells:
   - {fileID: 1694740274}
   - {fileID: 1372215860}
   - {fileID: 681481048}
@@ -4223,13 +4223,13 @@ MonoBehaviour:
   - {fileID: 145864761}
   - {fileID: 2126864317}
   - {fileID: 1495281068}
-  turnIndicator: {fileID: 271593335}
-  scoreIndicator: {fileID: 357797801}
-  undoButton: {fileID: 474162366}
-  redoButton: {fileID: 1049686082}
-  restartButton: {fileID: 1332487785}
-  mainMenuButton: {fileID: 105024296}
-  controller: {fileID: 2142885371}
+  _turnIndicator: {fileID: 271593335}
+  _scoreIndicator: {fileID: 357797801}
+  _undoButton: {fileID: 474162366}
+  _redoButton: {fileID: 1049686082}
+  _restartButton: {fileID: 1332487785}
+  _mainMenuButton: {fileID: 105024296}
+  _controller: {fileID: 2142885371}
 --- !u!114 &2142885373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4254,9 +4254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627f9fe703315f148a4a4967cb8ae56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 2142885373}
-  view: {fileID: 2142885372}
-  controller: {fileID: 2142885371}
+  _model: {fileID: 2142885373}
+  _view: {fileID: 2142885372}
+  _controller: {fileID: 2142885371}
 --- !u!1 &2144617956
 GameObject:
   m_ObjectHideFlags: 0

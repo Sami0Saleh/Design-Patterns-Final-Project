@@ -8,27 +8,27 @@ public interface ICommand
 
 public class PlaceMarkCommand : ICommand
 {
-    private int cellIndex;
-    private char mark;
-    private char previousMark;
-    private TicTacToeModel model;
-    private TicTacToeView view;
+    private int _cellIndex;
+    private char _mark;
+    private char _previousMark;
+    private TicTacToeModel _model;
+    private TicTacToeView _view;
 
     public PlaceMarkCommand(int index, char playerMark, TicTacToeModel gameModel, TicTacToeView gameView)
     {
-        cellIndex = index;
-        mark = playerMark;
-        model = gameModel;
-        view = gameView;
+        _cellIndex = index;
+        _mark = playerMark;
+        _model = gameModel;
+        _view = gameView;
     }
 
     public void Execute()
     {
-        previousMark = model.Board[cellIndex];
+        _previousMark = _model.Board[_cellIndex];
 
-        model.Board[cellIndex] = mark;
+        _model.Board[_cellIndex] = _mark;
 
-        view.UpdateBoardCell(cellIndex, mark);
+        _view.UpdateBoardCell(_cellIndex, _mark);
 
         GameManager.Instance.SwitchTurn();
 
@@ -39,24 +39,24 @@ public class PlaceMarkCommand : ICommand
     {
         GameManager.Instance.SwitchTurn();
 
-        if (model.HasWinner)
+        if (_model.HasWinner)
         {
-            model.DecreaseScore(model.CurrentPlayer);
-            view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+            _model.DecreaseScore(_model.CurrentPlayer);
+            _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
         }
         else
         {
-            model.DecreaseScore(' ');
-            view.UpdateScore(model.PlayerXWins, model.PlayerOWins, model.Ties);
+            _model.DecreaseScore(' ');
+            _view.UpdateScore(_model.PlayerXWins, _model.PlayerOWins, _model.Ties);
         }
 
-        model.Board[cellIndex] = previousMark;
-        view.UpdateBoardCell(cellIndex, previousMark);
+        _model.Board[_cellIndex] = _previousMark;
+        _view.UpdateBoardCell(_cellIndex, _previousMark);
 
         GameManager.Instance.UndoWinConditionCheck();
-        view.UpdateTurnIndicator(model.CurrentPlayer);
+        _view.UpdateTurnIndicator(_model.CurrentPlayer);
 
-        model.HasWinner = false;
+        _model.HasWinner = false;
        
     }
 }

@@ -4,34 +4,77 @@ using UnityEngine;
 
 public class PickupSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject pickupPrefab;
-    [SerializeField] private List<Transform> pickupSpawnPoints;
-    [SerializeField] private float spawnRate = 5f;    
+    [SerializeField] private GameObject _pickupPrefab;
+    [SerializeField] private List<Transform> _pickupSpawnPoints;
+    [SerializeField] private float _spawnRate = 10f;
 
-    private float nextSpawnTime;
+    private float _nextSpawnTime;
+
+    // Dictionary to keep track of pickups at each spawn point
+    private Dictionary<Transform, GameObject> _spawnedPickups = new Dictionary<Transform, GameObject>();
 
     void Start()
     {
-        nextSpawnTime = Time.time + spawnRate;
+        _nextSpawnTime = Time.time + _spawnRate;
+
+        foreach (var spawnPoint in _pickupSpawnPoints)
+        {
+            _spawnedPickups.Add(spawnPoint, null);
+        }
     }
 
     void Update()
     {
-        if (Time.time >= nextSpawnTime)
+        if (Time.time >= _nextSpawnTime)
         {
-            SpawnPickup();
-            nextSpawnTime = Time.time + spawnRate;
+            bool spawned = SpawnPickup();
+
+            if (spawned)
+            {
+                _nextSpawnTime = Time.time + _spawnRate;
+            }
+            else
+            {
+                _nextSpawnTime = Time.time + _spawnRate;
+            }
         }
     }
 
-    void SpawnPickup()
+    bool SpawnPickup()
     {
-        if (pickupSpawnPoints.Count == 0)
-            return;
+        List<Transform> availableSpawnPoints = new List<Transform>();
 
-        int spawnIndex = Random.Range(0, pickupSpawnPoints.Count);
-        Transform spawnPoint = pickupSpawnPoints[spawnIndex];
+        foreach (var entry in _spawnedPickups)
+        {
+            if (entry.Value == null)
+            {
+                availableSpawnPoints.Add(entry.Key);
+            }
+        }
 
-        Instantiate(pickupPrefab, spawnPoint.position, Quaternion.identity);
+        if (availableSpawnPoints.Count == 0)
+        {
+            return false;
+        }
+
+        int spawnIndex = Random.Range(0, availableSpawnPoints.Count);
+        Transform spawnPoint = availableSpawnPoints[spawnIndex];
+
+        GameObject newPickup = Instantiate(_pickupPrefab, spawnPoint.position, Quaternion.identity);
+
+        _spawnedPickups[spawnPoint] = newPickup;
+
+        Pickup pickupScript = newPickup.GetComponent<Pickup>();
+        pickupScript.SetSpawner(this, spawnPoint);
+
+        return true;
+    }
+
+    public void OnPickupCollected(Transform spawnPoint)
+    {
+        if (_spawnedPickups.ContainsKey(spawnPoint))
+        {
+            _spawnedPickups[spawnPoint] = null;
+        }
     }
 }

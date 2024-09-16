@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    public TMP_Text scoreText;
+    [SerializeField] private GameObject _pauseMenu;
+    public TMP_Text ScoreText;
     
 
     void Awake()
@@ -15,7 +17,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,7 +26,7 @@ public class UIManager : MonoBehaviour
     
     public void UpdateScoreText(int score)
     {
-        scoreText.text = "Score: " + score;
+        ScoreText.text = "Score: " + score;
     }
     public GameObject AddMinimapIcon(GameObject iconPrefab)
     {
@@ -38,4 +39,20 @@ public class UIManager : MonoBehaviour
         Destroy(icon);
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        _pauseMenu.SetActive(true);
+    }
+
+    public void Continue()
+    {
+        Time.timeScale = 1.0f;
+        _pauseMenu.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

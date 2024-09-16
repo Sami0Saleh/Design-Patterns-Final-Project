@@ -5,14 +5,13 @@ using UnityEngine;
 public class AdventureGameManager : MonoBehaviour
 {
     public static AdventureGameManager Instance { get; private set; }
-    public int score = 0;
+    public int Score = 0;
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -22,7 +21,7 @@ public class AdventureGameManager : MonoBehaviour
 
     public void AddScore(int points)
     {
-        score += points;
-        UIManager.Instance.UpdateScoreText(score);
+        Score += points;
+        UIManager.Instance.UpdateScoreText(Score);
     }
 }

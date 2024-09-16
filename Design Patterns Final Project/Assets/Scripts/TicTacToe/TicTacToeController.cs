@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class TicTacToeController : MonoBehaviour
 {
-    [SerializeField] private TicTacToeModel model;
-    [SerializeField] private TicTacToeView view;
+    [SerializeField] private TicTacToeModel _model;
+    [SerializeField] private TicTacToeView _view;
 
     public void OnCellClicked(int index)
     {
-        if (model.Board[index] != ' ' || IsGameOver())
+        if (_model.Board[index] != ' ' || IsGameOver())
             return;
 
-        ICommand command = new PlaceMarkCommand(index, model.CurrentPlayer, model, view);
+        ICommand command = new PlaceMarkCommand(index, _model.CurrentPlayer, _model, _view);
         GameManager.Instance.ExecuteCommand(command);
     }
 
     private bool IsGameOver()
     {
-        if (!string.IsNullOrEmpty(view.TurnIndicator.text) && view.TurnIndicator.text.Contains("Wins"))
+        if (!string.IsNullOrEmpty(_view.TurnIndicator.text) && _view.TurnIndicator.text.Contains("Wins"))
         {
             return true; 
         }
 
         bool isBoardFull = true;
-        foreach (char cell in model.Board)
+        foreach (char cell in _model.Board)
         {
             if (cell == ' ')
             {
@@ -54,13 +54,13 @@ public class TicTacToeController : MonoBehaviour
         for (int i = 0; i < winConditions.GetLength(0); i++)
         {
             int a = winConditions[i, 0], b = winConditions[i, 1], c = winConditions[i, 2];
-            if (model.Board[a] != ' ' && model.Board[a] == model.Board[b] && model.Board[a] == model.Board[c])
+            if (_model.Board[a] != ' ' && _model.Board[a] == _model.Board[b] && _model.Board[a] == _model.Board[c])
             {
-                return model.Board[a];
+                return _model.Board[a];
             }
         }
 
-        foreach (char cell in model.Board)
+        foreach (char cell in _model.Board)
         {
             if (cell == ' ')
                 return '\0'; 

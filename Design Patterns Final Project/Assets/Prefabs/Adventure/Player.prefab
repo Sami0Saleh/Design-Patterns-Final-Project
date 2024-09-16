@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66478188a8972142bdfbd0dc18b593e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 6355664810055498883}
-  moveSpeed: 5
-  spawnPointTransform: {fileID: 0}
-  CamPosition: {x: 0, y: 2, z: -3.5}
+  _rb: {fileID: 6355664810055498883}
+  _moveSpeed: 5
+  _spawnPointTransform: {fileID: 0}
+  CamPosition: {x: 0, y: 5, z: -8}
   _camTransform: {fileID: 0}
 --- !u!114 &4678267585318258541
 MonoBehaviour:
