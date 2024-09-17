@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _pauseMenu;
     public TMP_Text ScoreText;
-    
+    public bool GamePaused = false;
+
 
     void Awake()
     {
@@ -23,7 +24,11 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+    private void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     public void UpdateScoreText(int score)
     {
         ScoreText.text = "Score: " + score;
@@ -44,6 +49,7 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         _pauseMenu.SetActive(true);
+        GamePaused = true;
     }
 
     public void Continue()
@@ -51,9 +57,10 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
         _pauseMenu.SetActive(false);
+        GamePaused = false;
     }
 
-    public void MainMenu()
+public void MainMenu()
     {
         SceneManager.LoadScene(0);
     }

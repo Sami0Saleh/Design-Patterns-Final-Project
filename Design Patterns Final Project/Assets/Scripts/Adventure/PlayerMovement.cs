@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 2.0f;
     [SerializeField] private float verticalSpeed = 2.0f;
 
-    private bool _gamePaused = false;
+    
 
     private void Awake()
     {
@@ -20,9 +20,12 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        MovePlayer();
+        if (!UIManager.Instance.GamePaused)
+        {
+            MovePlayer();
 
-        RotatePlayerAndCamera();
+            RotatePlayerAndCamera();
+        }
 
         HandlePause();
     }
@@ -65,15 +68,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandlePause()
     {
-        if (!_gamePaused && Input.GetKeyDown(KeyCode.Escape))
+        if (!UIManager.Instance.GamePaused && Input.GetKeyDown(KeyCode.Escape))
         {
             UIManager.Instance.Pause();
-            _gamePaused = true;
+            
         }
-        else if (_gamePaused && Input.GetKeyDown(KeyCode.Escape))
+        else if (UIManager.Instance.GamePaused && Input.GetKeyDown(KeyCode.Escape))
         {
             UIManager.Instance.Continue();
-            _gamePaused = false;
+            
         }
     }
 

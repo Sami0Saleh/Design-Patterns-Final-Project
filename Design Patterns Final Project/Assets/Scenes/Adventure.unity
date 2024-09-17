@@ -3609,6 +3609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseMenu: {fileID: 459356684}
   ScoreText: {fileID: 263982041}
+  GamePaused: 0
 --- !u!1001 &732112997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8223,7 +8224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6339385508083941676, guid: a8290d7a6f130ac4cb9554c49b76f0ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -315
+      value: -324.27
       objectReference: {fileID: 0}
     - target: {fileID: 6339385508083941676, guid: a8290d7a6f130ac4cb9554c49b76f0ca, type: 3}
       propertyPath: m_LocalRotation.w
