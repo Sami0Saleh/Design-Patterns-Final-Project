@@ -41,12 +41,14 @@ public class UIManager : MonoBehaviour
 
     public void Pause()
     {
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
         _pauseMenu.SetActive(true);
     }
 
     public void Continue()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1.0f;
         _pauseMenu.SetActive(false);
     }
